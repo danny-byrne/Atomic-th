@@ -1,0 +1,24 @@
+const Card = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="48"
+      height="33"
+      viewBox="0 0 48 33"
+      fill="none"
+    >
+      <rect width="48" height="33" rx="5" fill="#D9D9D9" />
+      <line y1="7" x2="48" y2="7" stroke="#8F8F8F" stroke-width="2" />
+      <path
+        d="M22 19C22.5523 19 23 18.5523 23 18C23 17.4477 22.5523 17 22 17V19ZM2 19H22V17H2V19Z"
+        fill="#ECECEC"
+      />
+      <path
+        d="M36 26C36.5523 26 37 25.5523 37 25C37 24.4477 36.5523 24 36 24V26ZM2 26H36V24H2V26Z"
+        fill="#ECECEC"
+      />
+    </svg>
+  );
+};
+
+export default Card;
