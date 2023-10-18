@@ -73,8 +73,6 @@ const Home: NextPage = () => {
     maxAmount,
   ]);
 
-  console.log({ filteredTransactions });
-
   return (
     <div className="w-full h-full">
       <div className="m-10">

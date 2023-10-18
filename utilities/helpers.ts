@@ -28,23 +28,17 @@ export const extractMerchantsAndCardsFromTransactionsData = (data) => {
 export const convertNumberToDisplayAmount = (
   incomingNumber: number
 ): string => {
-  // console.log({ incomingNumber });
   if (!incomingNumber) return "";
   const numString = incomingNumber.toString();
-
-  //remove the first charachter which is a dollar sign
-
   return numString;
 };
 
 export const convertDisplayAmountToNumber = (
   onChangeAmount: string
 ): number => {
-  // console.log({ onChangeAmount });
   if (onChangeAmount == "") return 0;
 
   const onChangeAmountToInt = parseInt(onChangeAmount);
-  // console.log({ onChangeAmountToInt });
   return onChangeAmountToInt;
 };
 
@@ -72,8 +66,6 @@ export const formatDate = (dateString) => {
   const dateToLocale = date.toLocaleDateString("en-US", options);
   const splitDate = dateToLocale.split(",");
   const timeAndTimezoneText: string = splitDate[1];
-  console.log({ timeAndTimezoneText });
-  // const dateTextSplit = splitDate.split(" ");
 
   if (isToday(date, currentDate)) {
     return "Today at " + timeAndTimezoneText;

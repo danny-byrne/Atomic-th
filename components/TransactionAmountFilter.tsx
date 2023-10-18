@@ -11,13 +11,10 @@ const TransactionAmountFilter = ({ onUpdate, label }) => {
 
   useEffect(() => {
     const amountToUpdate = amount ?? null;
-    console.log({ amountToUpdate, label });
     debounceInput(amountToUpdate, onUpdate);
   }, [amount]);
 
   const numberFormatted = convertNumberToDisplayAmount(amount);
-
-  // console.log({ numberFormatted });
 
   const handleOnChange = (val: string) => {
     const num = convertDisplayAmountToNumber(val);
@@ -30,14 +27,12 @@ const TransactionAmountFilter = ({ onUpdate, label }) => {
         {label}
       </div>
 
-      <div className=" w-30 h-5 pl-3 border-1 border-zinc-800 rounded-lg">
+      <div className=" w-20 h-5  border-1 border-zinc-800 rounded-lg">
         $
         <input
-          type="text"
+          type="number"
           value={numberFormatted}
           onChange={(e) => {
-            // todo: block non-numeric characters
-
             e.preventDefault();
             handleOnChange(e.target.value);
           }}
