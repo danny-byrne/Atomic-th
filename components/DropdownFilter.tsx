@@ -3,7 +3,7 @@
 //or a number input
 const DropdownFilter = ({ selectOptions, onChange, label }) => {
   return (
-    <div className="flex flex-col mt-4">
+    <div className="flex flex-col ">
       <div className="w-28 text-neutral-700 text-xs font-['Arial']">
         {label}
       </div>

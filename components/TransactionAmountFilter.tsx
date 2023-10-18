@@ -7,16 +7,17 @@ import {
 } from "../utilities/helpers";
 
 const TransactionAmountFilter = ({ onUpdate, label }) => {
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState(null);
 
   useEffect(() => {
     const amountToUpdate = amount ?? null;
+    console.log({ amountToUpdate, label });
     debounceInput(amountToUpdate, onUpdate);
   }, [amount]);
 
   const numberFormatted = convertNumberToDisplayAmount(amount);
 
-  console.log({ numberFormatted });
+  // console.log({ numberFormatted });
 
   const handleOnChange = (val: string) => {
     const num = convertDisplayAmountToNumber(val);
@@ -35,6 +36,8 @@ const TransactionAmountFilter = ({ onUpdate, label }) => {
           type="text"
           value={numberFormatted}
           onChange={(e) => {
+            // todo: block non-numeric characters
+
             e.preventDefault();
             handleOnChange(e.target.value);
           }}

@@ -28,8 +28,8 @@ export const extractMerchantsAndCardsFromTransactionsData = (data) => {
 export const convertNumberToDisplayAmount = (
   incomingNumber: number
 ): string => {
-  console.log({ incomingNumber });
-  if (incomingNumber == 0) return "";
+  // console.log({ incomingNumber });
+  if (!incomingNumber) return "";
   const numString = incomingNumber.toString();
 
   //remove the first charachter which is a dollar sign
@@ -40,11 +40,11 @@ export const convertNumberToDisplayAmount = (
 export const convertDisplayAmountToNumber = (
   onChangeAmount: string
 ): number => {
-  console.log({ onChangeAmount });
+  // console.log({ onChangeAmount });
   if (onChangeAmount == "") return 0;
 
   const onChangeAmountToInt = parseInt(onChangeAmount);
-  console.log({ onChangeAmountToInt });
+  // console.log({ onChangeAmountToInt });
   return onChangeAmountToInt;
 };
 
@@ -57,3 +57,50 @@ export const debounceInput = (number, stateSetter) => {
     stateSetter(number);
   }, 500);
 };
+
+export const formatDate = (dateString) => {
+  const options = {
+    weekday: "long",
+    hour12: true,
+    hour: "numeric",
+    minute: "numeric",
+    timeZoneName: "short",
+  };
+  const date = new Date(dateString);
+  const currentDate = new Date();
+
+  const dateToLocale = date.toLocaleDateString("en-US", options);
+  const splitDate = dateToLocale.split(",");
+  const timeAndTimezoneText: string = splitDate[1];
+  console.log({ timeAndTimezoneText });
+  // const dateTextSplit = splitDate.split(" ");
+
+  if (isToday(date, currentDate)) {
+    return "Today at " + timeAndTimezoneText;
+  } else if (isYesterday(date, currentDate)) {
+    return "Yesterday at " + timeAndTimezoneText;
+  } else {
+    const dayOfWeek = new Intl.DateTimeFormat("en-US", {
+      weekday: "long",
+    }).format(date);
+    return dayOfWeek + " at " + timeAndTimezoneText;
+  }
+};
+
+function isToday(date, currentDate) {
+  return (
+    date.getDate() === currentDate.getDate() &&
+    date.getMonth() === currentDate.getMonth() &&
+    date.getFullYear() === currentDate.getFullYear()
+  );
+}
+
+function isYesterday(date, currentDate) {
+  const yesterday = new Date(currentDate);
+  yesterday.setDate(currentDate.getDate() - 1);
+  return (
+    date.getDate() === yesterday.getDate() &&
+    date.getMonth() === yesterday.getMonth() &&
+    date.getFullYear() === yesterday.getFullYear()
+  );
+}

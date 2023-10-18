@@ -1,3 +1,4 @@
+import { formatDate } from "../utilities/helpers";
 import Card from "./icons/Card";
 
 const pendingTag = (
@@ -49,11 +50,8 @@ const TransactionCard: React.FC<ITransactionProps> = ({
     createdAt,
     description,
     status,
-    updatedAt,
     direction,
   } = transaction;
-
-  const formattedCreatedAtDate = createdAt; // || updatedAt
 
   const cardClass =
     "h-32 flex flex-col justify-center pl-10 pr-10 bg-orange-100 border-zinc-800 rounded-lg shadow ";
@@ -66,6 +64,9 @@ const TransactionCard: React.FC<ITransactionProps> = ({
     direction
   );
 
+  //todo: fix formatting
+  const createdAtFormatted = formatDate(createdAt);
+
   return (
     <div className={cardClass}>
       <div className={flexRowClass}>
@@ -75,7 +76,7 @@ const TransactionCard: React.FC<ITransactionProps> = ({
 
             {statusIsPending && pendingTag}
           </div>
-          {formattedCreatedAtDate}
+          {createdAtFormatted}
         </div>
         <div className={transactionClass}>
           <div className="w-1/2 flex flex-row justify-between items-center">
