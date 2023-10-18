@@ -1,7 +1,16 @@
-//add a component that takes a label, onChange,
-//then either selectOptions  if passed in as prop
-//or a number input
-const DropdownFilter = ({ selectOptions, onChange, label }) => {
+import React from "react";
+
+type DropdownFilterProps = {
+  selectOptions: string[];
+  onChange: (value: string | null) => void;
+  label: string;
+};
+
+const DropdownFilter: React.FC<DropdownFilterProps> = ({
+  selectOptions,
+  onChange,
+  label,
+}) => {
   return (
     <div className="flex flex-col ">
       <div className="w-28 text-neutral-700 text-sm font-['Arial']">

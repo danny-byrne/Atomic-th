@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   convertDisplayAmountToNumber,
@@ -6,7 +6,15 @@ import {
   debounceInput,
 } from "../utilities/helpers";
 
-const TransactionAmountFilter = ({ onUpdate, label }) => {
+type TransactionAmountFilterProps = {
+  onUpdate: (value: number | null) => void;
+  label: string;
+};
+
+const TransactionAmountFilter: React.FC<TransactionAmountFilterProps> = ({
+  onUpdate,
+  label,
+}) => {
   const [amount, setAmount] = useState(null);
 
   useEffect(() => {
