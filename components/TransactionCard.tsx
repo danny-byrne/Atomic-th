@@ -53,8 +53,8 @@ const TransactionCard: React.FC<ITransactionProps> = ({
           </div>
           <div className="italic">{createdAtFormatted}</div>
         </div>
-        <div className="flex flex-row w-1/4 justify-between bg-red border-zinc-800 items-center font-bold text-lg">
-          <div className="w-1/2 flex flex-row justify-between items-center">
+        <div className="flex flex-row w-1/5 justify-between bg-red border-zinc-800 items-center font-bold text-lg">
+          <div className="w-1/2 flex flex-row gap-4 items-center">
             <Card />
             <span>{"x" + cardLast4Digits}</span>
           </div>

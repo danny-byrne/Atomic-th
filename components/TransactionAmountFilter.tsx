@@ -35,10 +35,10 @@ const TransactionAmountFilter: React.FC<TransactionAmountFilterProps> = ({
         {label}
       </div>
 
-      <div className="flex flex-row w-30 h-6 border-solid border-1 border-zinc-800 rounded-md bg-[#EFEFEF] pl-2">
-        $
+      <div className="flex flex-row w-30 h-6 border-solid border-1 border-zinc-800 rounded-md bg-[#EFEFEF] pl-2  items-center">
+        <div className="text-sm pr-1">$</div>
         <input
-          className="w-22 bg-[#EFEFEF] rounded-md focus:outline-none"
+          className="w-20 bg-[#EFEFEF] rounded-md focus:outline-none"
           type="number"
           value={numberFormatted}
           onChange={(e) => {
