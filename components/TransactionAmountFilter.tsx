@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
 import {
-  convertDollarAmountToNumber,
-  convertNumberToDollarAmount,
+  convertDisplayAmountToNumber,
+  convertNumberToDisplayAmount,
   debounceInput,
 } from "../utilities/helpers";
 
@@ -10,16 +10,16 @@ const TransactionAmountFilter = ({ onUpdate, label }) => {
   const [amount, setAmount] = useState(0);
 
   useEffect(() => {
-    console.log({ amount });
     const amountToUpdate = amount ?? null;
     debounceInput(amountToUpdate, onUpdate);
   }, [amount]);
 
-  const numberFormatted = convertNumberToDollarAmount(amount);
+  const numberFormatted = convertNumberToDisplayAmount(amount);
+
   console.log({ numberFormatted });
 
   const handleOnChange = (val: string) => {
-    const num = convertDollarAmountToNumber(val);
+    const num = convertDisplayAmountToNumber(val);
     setAmount(num);
   };
 

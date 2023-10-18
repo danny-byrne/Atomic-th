@@ -25,40 +25,27 @@ export const extractMerchantsAndCardsFromTransactionsData = (data) => {
   return { merchants, cardsUsed };
 };
 
-export const convertNumberToDollarAmount = (num: number): string => {
-  console.log({ num });
-  if (num == 0) return "";
+export const convertNumberToDisplayAmount = (
+  incomingNumber: number
+): string => {
+  console.log({ incomingNumber });
+  if (incomingNumber == 0) return "";
+  const numString = incomingNumber.toString();
 
-  const numString = num.toString();
+  //remove the first charachter which is a dollar sign
 
-  // Calculate the length of the number
-  const length = numString.length;
-
-  // Determine dollars and cents parts
-  let dollars, cents;
-
-  if (length <= 2) {
-    dollars = "0";
-    cents = numString.padStart(2, "0");
-  } else {
-    dollars = numString.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    cents = numString.slice(-2);
-  }
-
-  // Return the formatted string
-  return `${dollars}.${cents}`;
+  return numString;
 };
 
-export const convertDollarAmountToNumber = (onChangeAmount: string): number => {
+export const convertDisplayAmountToNumber = (
+  onChangeAmount: string
+): number => {
   console.log({ onChangeAmount });
-  if (onChangeAmount === "0.0") return 0;
-  //remove the decimal point
-  const amountWithoutDecimalPoint = onChangeAmount.replace("." || ",", "");
-  //convert to a number
-  const amountAsNumber = parseInt(amountWithoutDecimalPoint);
-  console.log({ amountAsNumber });
-  //return the number
-  return amountAsNumber;
+  if (onChangeAmount == "") return 0;
+
+  const onChangeAmountToInt = parseInt(onChangeAmount);
+  console.log({ onChangeAmountToInt });
+  return onChangeAmountToInt;
 };
 
 let debounceTimer;

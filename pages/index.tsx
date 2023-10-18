@@ -17,9 +17,9 @@ const Home: NextPage = () => {
   const [minAmount, setMinAmount] = useState(null);
   const [maxAmount, setMaxAmount] = useState(null);
 
-  // useEffect(() => {
-  //   console.log({ minAmount, maxAmount });
-  // }, [minAmount, maxAmount]);
+  useEffect(() => {
+    console.log({ minAmount, maxAmount });
+  }, [minAmount, maxAmount]);
 
   const fetchTransactions = async () => {
     const response = await fetch("/api/transactions");
