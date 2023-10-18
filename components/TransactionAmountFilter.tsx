@@ -23,13 +23,14 @@ const TransactionAmountFilter = ({ onUpdate, label }) => {
 
   return (
     <div className="flex flex-col">
-      <div className="w-28 text-neutral-700 text-xs font-['Arial']">
+      <div className="w-28 text-neutral-700 text-sm font-['Arial']">
         {label}
       </div>
 
-      <div className=" w-20 h-5  border-1 border-zinc-800 rounded-lg">
+      <div className="flex flex-row w-30 h-5  border-1 border-zinc-800 rounded-lg">
         $
         <input
+          className="w-22"
           type="number"
           value={numberFormatted}
           onChange={(e) => {

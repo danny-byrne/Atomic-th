@@ -13,9 +13,6 @@ module.exports = {
       lg: ["20px", "28px"],
       xl: ["24px", "32px"],
     },
-    // colors: {
-    //   "regal-blue": "#243c5a",
-    // },
   },
   plugins: [],
 };

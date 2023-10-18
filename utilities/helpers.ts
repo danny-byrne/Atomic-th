@@ -42,6 +42,22 @@ export const convertDisplayAmountToNumber = (
   return onChangeAmountToInt;
 };
 
+export enum purchaseDirection {
+  Credit = "Credit",
+  Debit = "Debit",
+}
+
+export const convertAmountCentsToTransactionDisplay = (
+  amount: number,
+  direction: purchaseDirection
+) => {
+  const dollars = Math.floor(amount / 100);
+  const cents = amount % 100;
+  const formattedCents = cents < 10 ? `0${cents}` : `${cents}`;
+  const prefix = direction === purchaseDirection.Credit ? "-" : "";
+  return `$${prefix}${dollars}.${formattedCents}`;
+};
+
 let debounceTimer;
 
 export const debounceInput = (number, stateSetter) => {

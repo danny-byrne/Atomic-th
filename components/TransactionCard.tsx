@@ -1,18 +1,10 @@
-import { formatDate } from "../utilities/helpers";
+import {
+  formatDate,
+  convertAmountCentsToTransactionDisplay,
+  purchaseDirection,
+} from "../utilities/helpers";
 import Card from "./icons/Card";
-
-const pendingTag = (
-  <div className="flex items-center justify-center w-20 h-7 bg-yellow-100 rounded-xl border border-zinc-400">
-    <div className="w-16 h-3.5 text-center text-black  text-sm font-normal font-['Arial']">
-      PENDING
-    </div>
-  </div>
-);
-
-enum purchaseDirection {
-  Credit = "Credit",
-  Debit = "Debit",
-}
+import PendingTag from "./PendingTag";
 
 export interface ITransaction {
   amountCents: number;
@@ -29,17 +21,6 @@ export interface ITransaction {
 export interface ITransactionProps {
   transaction: ITransaction;
 }
-
-const convertAmountCentsToTransactionDisplay = (
-  amount: number,
-  direction: purchaseDirection
-) => {
-  const dollars = Math.floor(amount / 100);
-  const cents = amount % 100;
-  const formattedCents = cents < 10 ? `0${cents}` : `${cents}`;
-  const prefix = direction === purchaseDirection.Credit ? "-" : "";
-  return `$${prefix}${dollars}.${formattedCents}`;
-};
 
 const TransactionCard: React.FC<ITransactionProps> = ({
   transaction,
@@ -64,19 +45,18 @@ const TransactionCard: React.FC<ITransactionProps> = ({
     direction
   );
 
-  //todo: fix formatting
   const createdAtFormatted = formatDate(createdAt);
 
   return (
     <div className={cardClass}>
       <div className={flexRowClass}>
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-6">
           <div className="flex flex-row gap-4 text-lg">
             {description}
 
-            {statusIsPending && pendingTag}
+            {statusIsPending && <PendingTag />}
           </div>
-          {createdAtFormatted}
+          <div className="italic">{createdAtFormatted}</div>
         </div>
         <div className={transactionClass}>
           <div className="w-1/2 flex flex-row justify-between items-center">
