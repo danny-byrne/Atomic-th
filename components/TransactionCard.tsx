@@ -34,11 +34,6 @@ const TransactionCard: React.FC<ITransactionProps> = ({
     direction,
   } = transaction;
 
-  const cardClass =
-    "h-32 flex flex-col justify-center pl-10 pr-10 bg-orange-100 border-zinc-800 rounded-lg shadow ";
-  const flexRowClass = "flex flex-row justify-between align-middle";
-  const transactionClass =
-    "flex flex-row w-1/4  justify-between bg-red border-zinc-800 items-center font-bold text-lg ";
   const statusIsPending = status === "pending";
   const transactionAmount = convertAmountCentsToTransactionDisplay(
     amountCents,
@@ -48,8 +43,8 @@ const TransactionCard: React.FC<ITransactionProps> = ({
   const createdAtFormatted = formatDate(createdAt);
 
   return (
-    <div className={cardClass}>
-      <div className={flexRowClass}>
+    <div className="h-32 flex flex-col justify-center pl-10 pr-10 bg-orange-100 border-zinc-800 rounded-lg drop-shadow-md">
+      <div className="flex flex-row justify-between align-middle">
         <div className="flex flex-col gap-6">
           <div className="flex flex-row gap-4 text-lg">
             {description}
@@ -58,7 +53,7 @@ const TransactionCard: React.FC<ITransactionProps> = ({
           </div>
           <div className="italic">{createdAtFormatted}</div>
         </div>
-        <div className={transactionClass}>
+        <div className="flex flex-row w-1/4 justify-between bg-red border-zinc-800 items-center font-bold text-lg">
           <div className="w-1/2 flex flex-row justify-between items-center">
             <Card />
             <span>{"x" + cardLast4Digits}</span>

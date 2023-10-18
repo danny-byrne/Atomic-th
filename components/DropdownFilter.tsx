@@ -17,10 +17,9 @@ const DropdownFilter: React.FC<DropdownFilterProps> = ({
         {label}
       </div>
       <select
-        className="w-28 h-5 border rounded-md text-sm focus:outline-none"
+        className="w-28 h-6 border rounded-md text-sm focus:outline-none bg-[#EFEFEF]"
         onChange={(e) => {
           let value = e.target.value;
-          console.log({ value });
           if (value === "") {
             value = null;
           }

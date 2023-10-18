@@ -2,6 +2,8 @@ import { useEffect, useState, useMemo } from "react";
 import { ITransaction } from "../components/TransactionCard";
 import { extractMerchantsAndCardsFromTransactionsData } from "../utilities/helpers";
 
+const statusFilters = [null, "settled", "pending"];
+
 const useTransactionFiltersAndValues = () => {
   const [transactions, setTransactions] = useState<ITransaction[]>([]);
   const [merchantFilters, setMerchantFilters] = useState<string[]>([]);
@@ -77,6 +79,7 @@ const useTransactionFiltersAndValues = () => {
     setSelectedMerchantFilter,
     merchantFilters,
     cardFilters,
+    statusFilters,
   };
 };
 

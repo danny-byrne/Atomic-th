@@ -4,8 +4,6 @@ import DropdownFilter from "../components/DropdownFilter";
 import TransactionAmountFilter from "../components/TransactionAmountFilter";
 import useTransactionFiltersAndValues from "../hooks/useTransactionFiltersAndValues";
 
-const statusFilters = [null, "settled", "pending"];
-
 const Home: NextPage = () => {
   const {
     filteredTransactions,
@@ -16,6 +14,7 @@ const Home: NextPage = () => {
     setSelectedMerchantFilter,
     merchantFilters,
     cardFilters,
+    statusFilters,
   } = useTransactionFiltersAndValues();
 
   return (
