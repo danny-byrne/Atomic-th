@@ -2,7 +2,7 @@ import Card from "./icons/Card";
 
 const pendingTag = (
   <div className="flex items-center justify-center w-20 h-7 bg-yellow-100 rounded-xl border border-zinc-400">
-    <div className="w-16 h-3.5 text-center text-black  text-xs font-normal font-['Arial']">
+    <div className="w-16 h-3.5 text-center text-black  text-sm font-normal font-['Arial']">
       PENDING
     </div>
   </div>
@@ -59,7 +59,7 @@ const TransactionCard: React.FC<ITransactionProps> = ({
     "h-32 flex flex-col justify-center pl-10 pr-10 bg-orange-100 border-zinc-800 rounded-lg shadow ";
   const flexRowClass = "flex flex-row justify-between align-middle";
   const transactionClass =
-    "flex flex-row w-1/4  justify-between bg-red border-zinc-800 items-center";
+    "flex flex-row w-1/4  justify-between bg-red border-zinc-800 items-center font-bold text-lg ";
   const statusIsPending = status === "pending";
   const transactionAmount = convertAmountCentsToTransactionDisplay(
     amountCents,
@@ -70,7 +70,7 @@ const TransactionCard: React.FC<ITransactionProps> = ({
     <div className={cardClass}>
       <div className={flexRowClass}>
         <div className="flex flex-col">
-          <div className="flex flex-row gap-4">
+          <div className="flex flex-row gap-4 text-lg">
             {description}
 
             {statusIsPending && pendingTag}
@@ -78,7 +78,7 @@ const TransactionCard: React.FC<ITransactionProps> = ({
           {formattedCreatedAtDate}
         </div>
         <div className={transactionClass}>
-          <div className="w-2/5 flex flex-row justify-between">
+          <div className="w-1/2 flex flex-row justify-between items-center">
             <Card />
             <span>{"x" + cardLast4Digits}</span>
           </div>
