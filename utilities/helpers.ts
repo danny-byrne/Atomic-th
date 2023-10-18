@@ -36,7 +36,7 @@ export const convertNumberToDisplayAmount = (
 export const convertDisplayAmountToNumber = (
   onChangeAmount: string
 ): number => {
-  if (onChangeAmount == "") return 0;
+  if (onChangeAmount == "" || onChangeAmount == "0") return null;
 
   const onChangeAmountToInt = parseInt(onChangeAmount);
   return onChangeAmountToInt;
