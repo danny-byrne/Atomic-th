@@ -10,7 +10,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Transaction[]>
 ) {
-  // console.log("request", JSON.stringify(req));
   const database = await setupDb();
   const transactions = await selectTransactions();
   res.status(200).json(transactions);

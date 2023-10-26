@@ -17,16 +17,23 @@ const useTransactionFiltersAndValues = () => {
   const fetchTransactions = async () => {
     const response = await fetch("/api/transactions");
     const data = await response.json();
-
-    const { merchants, cardsUsed } =
-      extractMerchantsAndCardsFromTransactionsData(data);
-
-    setMerchantFilters(merchants);
-    setCardFilters(cardsUsed);
     setTransactions(data);
   };
 
+  const fetchCardsAndMerchants = async () => {
+    // console.log("fetching cards and merchants");
+    const response = await fetch("/api/cards-and-merchants");
+    const data = await response.json();
+    const { cards, merchants } = data;
+    // console.log({ data, cards, merchants });
+    const cardsUsed = cards.map((card) => card.cardLast4Digits);
+    const merchantsUsed = merchants.map((merchant) => merchant.merchantName);
+    setMerchantFilters([null, ...merchantsUsed]);
+    setCardFilters([null, ...cardsUsed]);
+  };
+
   useEffect(() => {
+    fetchCardsAndMerchants();
     fetchTransactions();
   }, []);
 

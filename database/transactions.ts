@@ -59,6 +59,20 @@ export const insertTransaction = async (transaction: Transaction) => {
 //TODO: get cardsForFilters, getVendors for Filters
 
 export const selectTransactions = async (status?: string) => {
-  const where = status ? { status } : { status: "settled" };
-  return await TransactionTable.findAll({ where });
+  // const where = status ? { status } : { status: "settled" };
+  // return await TransactionTable.findAll({ where });
+  return await TransactionTable.findAll();
+};
+
+export const getCardsAndMerchantsForFilters = async () => {
+  const cards = await TransactionTable.findAll({
+    attributes: ["cardLast4Digits"],
+    group: ["cardLast4Digits"],
+  });
+  const merchants = await TransactionTable.findAll({
+    attributes: ["merchantName"],
+    group: ["merchantName"],
+  });
+  console.log({ cards, merchants });
+  return { cards, merchants };
 };
