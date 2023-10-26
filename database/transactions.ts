@@ -62,7 +62,7 @@ export const insertTransaction = async (transaction: Transaction) => {
 interface TransactionFilters {
   selectedCardFilter?: string;
   selectedStatusFilter?: string;
-  selectedMerchantsFilter?: string;
+  selectedMerchantFilter?: string;
   minAmount?: number;
   maxAmount?: number;
 }
@@ -71,7 +71,7 @@ export const selectTransactions = async (filters: TransactionFilters) => {
   const {
     selectedCardFilter,
     selectedStatusFilter,
-    selectedMerchantsFilter,
+    selectedMerchantFilter,
     minAmount,
     maxAmount,
   } = filters;
@@ -86,8 +86,8 @@ export const selectTransactions = async (filters: TransactionFilters) => {
     whereClause.status = selectedStatusFilter;
   }
 
-  if (selectedMerchantsFilter) {
-    whereClause.merchantName = selectedMerchantsFilter;
+  if (selectedMerchantFilter) {
+    whereClause.merchantName = selectedMerchantFilter;
   }
 
   if (minAmount !== undefined && maxAmount !== undefined) {
@@ -100,7 +100,6 @@ export const selectTransactions = async (filters: TransactionFilters) => {
 };
 
 export const getCardsAndMerchantsForFilters = async () => {
-  await setupDb();
   const cards = await TransactionTable.findAll({
     attributes: ["cardLast4Digits"],
     group: ["cardLast4Digits"],

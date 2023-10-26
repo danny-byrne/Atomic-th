@@ -13,7 +13,7 @@ export default async function handler(
   const {
     selectedCardFilter,
     selectedStatusFilter,
-    selectedMerchantsFilter,
+    selectedMerchantFilter,
     minAmount,
     maxAmount,
   } = req.query;
@@ -22,13 +22,13 @@ export default async function handler(
   const minAmountValue = Array.isArray(minAmount) ? minAmount[0] : minAmount;
   const maxAmountValue = Array.isArray(maxAmount) ? maxAmount[0] : maxAmount;
 
-  const transactions = await selectTransactions({
+  const transactions: Transaction[] = await selectTransactions({
     selectedCardFilter: selectedCardFilter as string,
     selectedStatusFilter: selectedStatusFilter as string,
-    selectedMerchantsFilter: selectedMerchantsFilter as string,
+    selectedMerchantFilter: selectedMerchantFilter as string,
     minAmount: parseInt(minAmountValue, 10) || 0,
     maxAmount: parseInt(maxAmountValue, 10) || Number.MAX_SAFE_INTEGER,
   });
-  console.log({ transactions });
+
   res.status(200).json(transactions);
 }

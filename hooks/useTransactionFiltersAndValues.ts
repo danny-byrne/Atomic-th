@@ -23,26 +23,30 @@ const useTransactionFiltersAndValues = () => {
   const [maxAmount, setMaxAmount] = useState(null);
   const [transactionsFetched, setInitTransactionsFetched] = useState(false);
 
-  const fetchTransactions = async ({
+  async function fetchTransactions({
     selectedCardFilter = "",
     selectedStatusFilter = "",
     selectedMerchantFilter = "",
     minAmount = 0,
     maxAmount = Number.MAX_SAFE_INTEGER,
-  }) => {
+  }): Promise<ITransaction[]> {
     const queryParams = new URLSearchParams({
-      selectedCardFilter: String(selectedCardFilter),
-      selectedStatusFilter: String(selectedStatusFilter),
-      selectedMerchantFilter: String(selectedMerchantFilter),
-      minAmount: String(minAmount),
-      maxAmount: String(maxAmount),
+      selectedCardFilter: selectedCardFilter ? String(selectedCardFilter) : "",
+      selectedStatusFilter: selectedStatusFilter
+        ? String(selectedStatusFilter)
+        : "",
+      selectedMerchantFilter: selectedMerchantFilter
+        ? String(selectedMerchantFilter)
+        : "",
+      minAmount: minAmount ? String(minAmount) : "",
+      maxAmount: maxAmount ? String(maxAmount) : "",
     });
 
     const response = await fetch(`/api/transactions?${queryParams}`);
     const data = await response.json();
-    console.log({ data });
-    setTransactions(data);
-  };
+
+    return data;
+  }
 
   const fetchCardsAndMerchants = async () => {
     const response = await fetch("/api/cards-and-merchants");
@@ -55,7 +59,6 @@ const useTransactionFiltersAndValues = () => {
     setCardFilters([null, ...cardsUsed]);
   };
 
-  //first populate card and merchant filters
   useEffect(() => {
     fetchCardsAndMerchants();
   }, []);
@@ -67,61 +70,25 @@ const useTransactionFiltersAndValues = () => {
     setInitTransactionsFetched(true);
   }, [cardFilters]);
 
-  // const filteredTransactions = useMemo(() => {
-  //   const filteredTransactions = transactions.filter((transaction) => {
-  //     const isStatusFilterMatch =
-  //       selectedStatusFilter === null ||
-  //       transaction.status === selectedStatusFilter;
-
-  //     const isCardFilterMatch =
-  //       selectedCardFilter === null ||
-  //       transaction.cardLast4Digits === selectedCardFilter;
-
-  //     const isMerchantFilterMatch =
-  //       selectedMerchantFilter === null ||
-  //       transaction.merchantName === selectedMerchantFilter;
-
-  //     const isMinAmountMatch =
-  //       minAmount === null || transaction.amountCents >= minAmount * 100;
-
-  //     const isMaxAmountMatch =
-  //       maxAmount === null || transaction.amountCents <= maxAmount * 100;
-
-  //     const isAFilterMatch =
-  //       isStatusFilterMatch &&
-  //       isCardFilterMatch &&
-  //       isMerchantFilterMatch &&
-  //       isMinAmountMatch &&
-  //       isMaxAmountMatch;
-
-  //     return isAFilterMatch;
-  //   });
-
-  //   return filteredTransactions;
-  // }, [
-  //   transactions,
-  //   selectedStatusFilter,
-  //   selectedCardFilter,
-  //   selectedMerchantFilter,
-  //   minAmount,
-  //   maxAmount,
-  // ]);
-
-  const filteredTransactions = useMemo(() => {
-    const getTransactions = async () => {
-      const transactions = await fetchTransactions({
+  const handleUpdateTransactions = async () => {
+    try {
+      const fetchedTransactions = await fetchTransactions({
         selectedCardFilter,
         selectedStatusFilter,
         selectedMerchantFilter,
         minAmount: minAmount * 100,
         maxAmount: maxAmount * 100,
       });
-      return transactions;
-    };
 
-    const filteredTransactions = getTransactions();
+      setTransactions(fetchedTransactions); // Set state after the asynchronous operation completes
+    } catch (error) {
+      console.error("Error fetching transactions:", error);
+      // Handle the error, e.g., display an error message to the user
+    }
+  };
 
-    return filteredTransactions;
+  useEffect(() => {
+    handleUpdateTransactions();
   }, [
     selectedStatusFilter,
     selectedCardFilter,
@@ -132,7 +99,6 @@ const useTransactionFiltersAndValues = () => {
 
   return {
     transactions,
-    filteredTransactions,
     setMinAmount,
     setMaxAmount,
     setSelectedStatusFilter,

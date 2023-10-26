@@ -6,7 +6,6 @@ import useTransactionFiltersAndValues from "../hooks/useTransactionFiltersAndVal
 
 const Home: NextPage = () => {
   const {
-    filteredTransactions,
     setMinAmount,
     setMaxAmount,
     setSelectedStatusFilter,
