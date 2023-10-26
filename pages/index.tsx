@@ -15,6 +15,7 @@ const Home: NextPage = () => {
     merchantFilters,
     cardFilters,
     statusFilters,
+    transactions,
   } = useTransactionFiltersAndValues();
 
   return (
@@ -41,8 +42,8 @@ const Home: NextPage = () => {
           />
         </div>
         <div className="flex flex-col gap-8 mt-10">
-          {filteredTransactions &&
-            filteredTransactions.map((transaction: ITransaction) => (
+          {transactions &&
+            transactions.map((transaction: ITransaction) => (
               <TransactionCard key={transaction.id} transaction={transaction} />
             ))}
         </div>

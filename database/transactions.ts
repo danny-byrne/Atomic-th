@@ -1,4 +1,5 @@
 import { baseData } from "./seed";
+import { Op } from "sequelize";
 import { DataTypes, Sequelize } from "sequelize";
 
 let TransactionTable;
@@ -58,13 +59,48 @@ export const insertTransaction = async (transaction: Transaction) => {
 
 //TODO: get cardsForFilters, getVendors for Filters
 
-export const selectTransactions = async (status?: string) => {
-  // const where = status ? { status } : { status: "settled" };
-  // return await TransactionTable.findAll({ where });
-  return await TransactionTable.findAll();
+interface TransactionFilters {
+  selectedCardFilter?: string;
+  selectedStatusFilter?: string;
+  selectedMerchantsFilter?: string;
+  minAmount?: number;
+  maxAmount?: number;
+}
+
+export const selectTransactions = async (filters: TransactionFilters) => {
+  const {
+    selectedCardFilter,
+    selectedStatusFilter,
+    selectedMerchantsFilter,
+    minAmount,
+    maxAmount,
+  } = filters;
+
+  const whereClause: any = {};
+
+  if (selectedCardFilter) {
+    whereClause.cardLast4Digits = selectedCardFilter;
+  }
+
+  if (selectedStatusFilter) {
+    whereClause.status = selectedStatusFilter;
+  }
+
+  if (selectedMerchantsFilter) {
+    whereClause.merchantName = selectedMerchantsFilter;
+  }
+
+  if (minAmount !== undefined && maxAmount !== undefined) {
+    whereClause.amountCents = {
+      [Op.between]: [minAmount, maxAmount],
+    };
+  }
+
+  return await TransactionTable.findAll({ where: whereClause });
 };
 
 export const getCardsAndMerchantsForFilters = async () => {
+  await setupDb();
   const cards = await TransactionTable.findAll({
     attributes: ["cardLast4Digits"],
     group: ["cardLast4Digits"],
@@ -73,6 +109,6 @@ export const getCardsAndMerchantsForFilters = async () => {
     attributes: ["merchantName"],
     group: ["merchantName"],
   });
-  console.log({ cards, merchants });
+
   return { cards, merchants };
 };

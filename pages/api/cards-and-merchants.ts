@@ -15,7 +15,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<IGetCardsAndMerchantsForFiltersResponse>
 ) {
-  // const database = await setupDb();
   const response = await getCardsAndMerchantsForFilters();
   res.status(200).json(response);
 }
