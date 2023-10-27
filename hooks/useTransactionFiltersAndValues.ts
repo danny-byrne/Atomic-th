@@ -1,6 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
 import { ITransaction } from "../components/TransactionCard";
-import { extractMerchantsAndCardsFromTransactionsData } from "../utilities/helpers";
 
 const statusFilters = [null, "settled", "pending"];
 

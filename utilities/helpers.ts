@@ -1,30 +1,3 @@
-export const extractMerchantsAndCardsFromTransactionsData = (data) => {
-  //Todo:
-  //simpify this into one for loop
-  const merchants = data?.reduce(
-    (uniqueMerchants, transaction) => {
-      const merchantName = transaction.merchantName;
-      if (!uniqueMerchants.includes(merchantName)) {
-        uniqueMerchants.push(merchantName);
-      }
-      return uniqueMerchants;
-    },
-    [null]
-  );
-
-  const cardsUsed = data?.reduce(
-    (uniqueCards, transaction) => {
-      const cardLast4Digits = transaction.cardLast4Digits;
-      if (!uniqueCards.includes(cardLast4Digits)) {
-        uniqueCards.push(cardLast4Digits);
-      }
-      return uniqueCards;
-    },
-    [null]
-  );
-  return { merchants, cardsUsed };
-};
-
 export const convertNumberToDisplayAmount = (
   incomingNumber: number
 ): string => {
